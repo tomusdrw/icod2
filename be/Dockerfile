@@ -1,4 +1,4 @@
-FROM node:24-lts-slim AS base
+FROM node:24-bookworm-slim AS base
 
 ARG VERSION_TAG=dev
 ENV VERSION_TAG=${VERSION_TAG}
@@ -11,7 +11,7 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY be/package.json ./be/
 COPY libs/protocols/package.json ./libs/protocols/
 
-RUN npm install -g corepack && corepack enable && yarn set version 4.9.2
+RUN npm install -g corepack && corepack enable && corepack install
 
 # Builder stage
 FROM base AS builder
@@ -32,8 +32,6 @@ RUN yarn workspaces focus @icod2/be --production && \
 
 COPY --from=builder /app/libs/protocols/dist /app/libs/protocols/dist
 COPY --from=builder /app/be/dist /app/be/dist
-
-COPY be/.config.* /app/be
 
 RUN chown -R node:node /app && \
   mkdir -p /app/data && \

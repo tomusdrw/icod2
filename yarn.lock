@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10c0
 
 "@adobe/css-tools@npm:^4.4.0":
@@ -5773,6 +5773,13 @@ __metadata:
     concurrently: "npm:^8.2.2"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.1.6"
+  dependenciesMeta:
+    "@ipshipyard/node-datachannel":
+      built: true
+    "@tailwindcss/oxide":
+      built: true
+    esbuild:
+      built: true
   languageName: unknown
   linkType: soft
 

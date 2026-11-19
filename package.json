@@ -31,10 +31,21 @@
       "biome check --fix"
     ]
   },
+  "dependenciesMeta": {
+    "@ipshipyard/node-datachannel": {
+      "built": true
+    },
+    "@tailwindcss/oxide": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    }
+  },
   "resolutions": {
     "@libp2p/interface": "^2.11.0"
   },
-  "packageManager": "yarn@4.9.2",
+  "packageManager": "yarn@4.18.1",
   "dependencies": {
     "@dotenvx/dotenvx": "^1.49.0"
   }
