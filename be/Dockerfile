@@ -11,7 +11,7 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY be/package.json ./be/
 COPY libs/protocols/package.json ./libs/protocols/
 
-RUN corepack enable && yarn set version 4.9.2
+RUN npm install -g corepack && corepack enable && yarn set version 4.9.2
 
 # Builder stage
 FROM base AS builder
