@@ -1,4 +1,4 @@
-FROM node:24-lts-slim AS base
+FROM node:24-slim AS base
 
 ARG VERSION_TAG=dev
 ENV VERSION_TAG=${VERSION_TAG}
