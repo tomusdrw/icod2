@@ -1,9 +1,9 @@
-import { gossipsub } from "@chainsafe/libp2p-gossipsub";
 import { noise } from "@chainsafe/libp2p-noise";
 import { yamux } from "@chainsafe/libp2p-yamux";
 import { loggerGate } from "@icod2/protocols";
 import { bootstrap } from "@libp2p/bootstrap";
 import { circuitRelayTransport } from "@libp2p/circuit-relay-v2";
+import { type GossipsubOpts, gossipsub } from "@libp2p/gossipsub";
 import { identify } from "@libp2p/identify";
 import { ping } from "@libp2p/ping";
 import { pubsubPeerDiscovery } from "@libp2p/pubsub-peer-discovery";
@@ -101,7 +101,7 @@ async function createLibp2pService({
           acceptPXThreshold: 0,
           opportunisticGraftThreshold: 0,
         },
-      }),
+      } as Partial<GossipsubOpts>),
       identify: identify(),
       ping: ping({
         timeout: 5000,

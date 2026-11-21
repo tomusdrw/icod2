@@ -1,8 +1,9 @@
 import { loggerGate, shortenPeerId } from "@icod2/protocols";
-import type { Libp2p, PubSub } from "@libp2p/interface";
+import type { GossipSub } from "@libp2p/gossipsub";
+import type { Libp2p } from "@libp2p/interface";
 
 export const addDebugDiscoveryState = (
-  libp2p: Libp2p<{ pubsub: PubSub }>,
+  libp2p: Libp2p<{ pubsub: GossipSub }>,
   roomToken: string,
 ) => {
   // @ts-expect-error
@@ -18,21 +19,20 @@ export const addDebugDiscoveryState = (
 };
 
 export const addDebugLogDiscoveryMessages = (
-  libp2p: Libp2p<{ pubsub: PubSub }>,
+  libp2p: Libp2p<{ pubsub: GossipSub }>,
   roomToken: string,
 ) => {
   console.log("addDebugLogDiscoveryMessages()");
   // @ts-expect-error
   window.debugLogDiscoveryMessages = () => {
-    libp2p.services.pubsub.addEventListener("message", (evt) => {
-      const msg = evt.detail;
+    libp2p.services.pubsub.addEventListener("gossipsub:message", (evt) => {
+      const msg = evt.detail.msg;
       if (msg.topic !== roomToken) return;
       console.log(
         "[DISCOVERY?] pubsub message on roomToken",
         msg.topic,
         "from",
-        //@ts-expect-error
-        shortenPeerId(msg.from?.toString()),
+        msg.type === "signed" ? shortenPeerId(msg.from.toString()) : "unknown",
         "bytes",
         msg.data?.length,
       );
@@ -77,7 +77,7 @@ export const addDebugPrintConnections = (libp2p: Libp2p) => {
 };
 
 export const addDebugTriggerRediscovery = (
-  libp2p: Libp2p<{ pubsub: PubSub }>,
+  libp2p: Libp2p<{ pubsub: GossipSub }>,
   roomToken: string,
 ) => {
   // @ts-expect-error
@@ -98,7 +98,7 @@ export const addDebugPeerStore = (libp2p: Libp2p) => {
 };
 
 export const addManuallyBroadcastMessage = (
-  libp2p: Libp2p<{ pubsub: PubSub }>,
+  libp2p: Libp2p<{ pubsub: GossipSub }>,
   roomToken: string,
 ) => {
   // @ts-expect-error

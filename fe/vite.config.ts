@@ -36,10 +36,14 @@ export default defineConfig(() => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: {
-            react: ["react", "react-dom", "react-dom/client"],
-            // zustand: ["zustand"],
-            // zod: ["zod"],
+          manualChunks: (id) => {
+            if (
+              id.includes("node_modules/react/") ||
+              id.includes("node_modules/react-dom/")
+            ) {
+              return "react";
+            }
+            return undefined;
           },
           chunkFileNames: (chunkInfo) => {
             // 1) exact control for *facade* chunks (usual case for dynamic imports)

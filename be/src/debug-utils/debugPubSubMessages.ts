@@ -1,18 +1,20 @@
 import { shortenPeerId } from "@icod2/protocols";
-import type { PubSub } from "@libp2p/interface";
+import type { GossipSub } from "@libp2p/gossipsub";
 import type { Libp2p } from "libp2p";
 import type { Logger } from "src/logger.js";
 
 export const debugPubSubMessages = (
-  libp2p: Libp2p<{ pubsub: PubSub }>,
+  libp2p: Libp2p<{ pubsub: GossipSub }>,
   logger: Logger,
 ) => {
   libp2p.services.pubsub.addEventListener("message", (e) => {
     const msg = e.detail;
     logger.info(
       {
-        // @ts-expect-error
-        from: shortenPeerId(msg.from?.toString()),
+        from:
+          msg.type === "signed"
+            ? shortenPeerId(msg.from.toString())
+            : undefined,
         topic: msg.topic,
         dataLength: msg.data?.length ?? 0,
       },

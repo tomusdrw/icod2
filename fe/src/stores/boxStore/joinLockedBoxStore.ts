@@ -195,7 +195,7 @@ export const useJoinLockedBoxStore = create<JoinLockedBoxState>()(
           ...joinLockedBoxState,
         }),
       setError: (error: string) => set({ error }),
-      setUnlockingStartDate: (unlockingStartDate: Date) =>
+      setUnlockingStartDate: (unlockingStartDate: Date | null) =>
         set({ unlockingStartDate }),
 
       reactToDisconnectedLeader: () =>
@@ -284,8 +284,8 @@ export const useJoinLockedBoxStore = create<JoinLockedBoxState>()(
             ) {
               filteredPayload.unlockingStartDate = payloadStartDate;
             } else if (
-              !!payloadStartDate &&
-              !!state.unlockingStartDate &&
+              payloadStartDate &&
+              state.unlockingStartDate &&
               !isEqual(
                 startOfSecond(payloadStartDate),
                 startOfSecond(state.unlockingStartDate),

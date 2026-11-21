@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import type { z } from "zod";
 
 export type RequestResponsePair<TRequest = unknown, TResponse = unknown> = {
