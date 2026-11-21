@@ -1,8 +1,3 @@
-import {
-  type GossipSub,
-  type GossipSubComponents,
-  gossipsub,
-} from "@chainsafe/libp2p-gossipsub";
 import { noise } from "@chainsafe/libp2p-noise";
 import { yamux } from "@chainsafe/libp2p-yamux";
 import type { RoomRegistrationProtocolResponses } from "@icod2/protocols";
@@ -13,8 +8,13 @@ import {
 } from "@icod2/protocols";
 import { autoNAT } from "@libp2p/autonat";
 import { circuitRelayServer } from "@libp2p/circuit-relay-v2";
+import {
+  type GossipsubOpts,
+  gossipsub,
+  type SubscriptionChangeData,
+} from "@libp2p/gossipsub";
 import { identify } from "@libp2p/identify";
-import type { Libp2p, PeerId, SubscriptionChangeData } from "@libp2p/interface";
+import type { Libp2p, PeerId } from "@libp2p/interface";
 import { tcp } from "@libp2p/tcp";
 import { webSockets } from "@libp2p/websockets";
 import { createLibp2p } from "libp2p";
@@ -89,7 +89,7 @@ export async function startLibp2pRelay({
           acceptPXThreshold: 0,
           opportunisticGraftThreshold: 0,
         },
-      }) as (arg: GossipSubComponents) => GossipSub,
+      } as Partial<GossipsubOpts>),
     },
   });
 

@@ -9,7 +9,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": "."
+    "rootDir": "./src",
+    "paths": {
+      "*": ["./*"]
+    }
   },
   "references": [{ "path": "../libs/protocols" }]
 }

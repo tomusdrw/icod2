@@ -1,6 +1,5 @@
 import type { Libp2p, PeerId, Stream } from "@libp2p/interface";
 import { peerIdFromString } from "@libp2p/peer-id";
-import { byteStream } from "it-byte-stream";
 import {
   fromString as u8FromString,
   toString as u8ToString,
@@ -59,21 +58,13 @@ export async function attachOngoingStream(
   onResponseMessage: (msg: string) => void,
 ) {
   let stream: Stream;
-  let byteStreamInstance: ReturnType<typeof byteStream>;
 
   try {
     const peerId = peerIdFromString(peerIdStr);
     stream = await dialProtocolWithRetry(libp2p, peerId, protocol, peerIdStr);
-    let keepListening = true;
-    byteStreamInstance = byteStream(stream);
 
     Promise.resolve().then(async () => {
-      while (keepListening) {
-        const buf = await byteStreamInstance.read();
-        if (!buf) {
-          keepListening = false;
-          break;
-        }
+      for await (const buf of stream) {
         const message = u8ToString(buf.subarray());
         onResponseMessage(message);
       }
@@ -83,8 +74,8 @@ export async function attachOngoingStream(
     throw err;
   }
 
-  const sendText = (text: string) => {
-    return byteStreamInstance.write(u8FromString(text));
+  const sendText = async (text: string) => {
+    stream.send(u8FromString(text));
   };
   const sendJson = (obj: Record<string, unknown>) => {
     return sendText(JSON.stringify(obj));
@@ -96,6 +87,5 @@ export async function attachOngoingStream(
     getStream() {
       return stream;
     },
-    byteStreamInstance,
   };
 }

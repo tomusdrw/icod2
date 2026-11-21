@@ -1,4 +1,4 @@
-import type { GossipSub } from "@chainsafe/libp2p-gossipsub";
+import type { GossipSub } from "@libp2p/gossipsub";
 import type { Libp2p } from "@libp2p/interface";
 
 export const starRoomRegistrationServiceStart = (
