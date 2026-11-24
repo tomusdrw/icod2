@@ -1,6 +1,6 @@
 {
   "name": "@icod2/protocols",
-  "packageManager": "yarn@4.18.1",
+  "packageManager": "yarn@4.19.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
