@@ -16,7 +16,7 @@
   "dependencies": {
     "@libp2p/peer-id": "^6.0.18",
     "it-byte-stream": "^3.0.0",
-    "libp2p": "^3.5.1",
+    "libp2p": "^3.5.2",
     "typescript": "^7.0.2",
     "uint8arrays": "^6.1.1",
     "zod": "^4.6.7"
