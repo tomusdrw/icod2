@@ -19,12 +19,12 @@
     "commitlint": "commitlint --edit --last"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.8",
+    "@biomejs/biome": "^2.6.9",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "concurrently": "^10.0.7",
     "husky": "^9.1.7",
-    "lint-staged": "^17.6.1"
+    "lint-staged": "^17.6.2"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
